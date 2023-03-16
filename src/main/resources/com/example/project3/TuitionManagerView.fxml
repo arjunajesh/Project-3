@@ -138,7 +138,7 @@
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
                                                 <Button mnemonicParsing="false" onAction="#enrollStudentButton" text="Enroll" />
-                                                <Button mnemonicParsing="false" text="Drop" />
+                                                <Button mnemonicParsing="false" onAction="#dropEnrollButton" text="Drop" />
                                             </children>
                                         </HBox>
                                         <TextField fx:id="eFirstName" GridPane.columnIndex="1" />
