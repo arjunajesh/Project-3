@@ -40,6 +40,8 @@ public class TuitionManagerController {
     @FXML
     private RadioButton itiRadio;
     @FXML
+    private RadioButton mathRadio;
+    @FXML
     private TextField creditsEnrolled;
     @FXML
     private TextField eFirstName;
@@ -87,6 +89,43 @@ public class TuitionManagerController {
             }
         }
     }
+    public void removeStudentButton(ActionEvent e){
+        if(validateProfileFields(firstName, lastName, dob)) {
+            int year = dob.getValue().getYear();
+            int month = dob.getValue().getMonth().getValue();
+            int day = dob.getValue().getDayOfMonth();
+            Date d = new Date(year, month, day);
+            String opText = "";
+            opText = roster.remove(new Profile(firstName.getText(), lastName.getText(), d));
+            output.setText(opText);
+        }
+    }
+
+    public void changeMajorButton(ActionEvent e){
+        if(validateProfileFields(firstName, lastName, dob)) {
+            int year = dob.getValue().getYear();
+            int month = dob.getValue().getMonth().getValue();
+            int day = dob.getValue().getDayOfMonth();
+            Date d = new Date(year, month, day);
+            String opText = "";
+            if(baitRadio.isSelected()) {
+                opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "BAIT");
+            }
+            if(csRadio.isSelected()) {
+                opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "CS");
+            }
+            if(eeRadio.isSelected()) {
+                opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "EE");
+            }
+            if(itiRadio.isSelected()) {
+                opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "ITI");
+            }
+            if(mathRadio.isSelected()) {
+                opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "MATH");
+            }
+            output.setText(opText);
+        }
+    }
     public void enrollStudentButton(ActionEvent e){
         int ccKey = creditsIsValid(creditsEnrolled.getText());
         if(validateProfileFields(eFirstName, eLastName, eDOB)){
@@ -104,14 +143,22 @@ public class TuitionManagerController {
                 int month = dob.getValue().getMonth().getValue();
                 int day = dob.getValue().getDayOfMonth();
                 Date d = new Date(year, month, day);
-
-                enrollment.add(new EnrollStudent(new Profile(eFirstName.getText(), eLastName.getText(), d)
+                String opText = enrollment.add(new EnrollStudent(new Profile(eFirstName.getText(), eLastName.getText(), d)
                         , Integer.parseInt(creditsEnrolled.getText())), roster);
+                output.setText(opText);
             }
         }
     }
-    public void removeStudent(ActionEvent e){
-
+    public void dropEnrollButton(ActionEvent e){
+        if(validateProfileFields(eFirstName, eLastName, eDOB)) {
+            int year = dob.getValue().getYear();
+            int month = dob.getValue().getMonth().getValue();
+            int day = dob.getValue().getDayOfMonth();
+            Date d = new Date(year, month, day);
+            String opText = enrollment.remove(new EnrollStudent(new Profile(eFirstName.getText(), eLastName.getText()
+                    ,d), 0));
+            output.setText(opText);
+        }
     }
     private boolean validateProfileFields(TextField fname, TextField lname, DatePicker d ){
         if(fname.getText().isBlank()){

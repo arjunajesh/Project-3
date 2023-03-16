@@ -103,8 +103,8 @@
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                             <children>
                                                 <Button fx:id="addButton" mnemonicParsing="false" onAction="#addStudentButton" text="Add" />
-                                                <Button mnemonicParsing="false" text="Remove" />
-                                                <Button mnemonicParsing="false" text="Change Major" />
+                                                <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeStudentButton" text="Remove" />
+                                                <Button fx:id="changeButton" mnemonicParsing="false" onAction="#changeMajorButton" text="Change Major" />
                                                 <Button mnemonicParsing="false" text="Load From File" />
                                             </children>
                                         </HBox>
@@ -138,7 +138,7 @@
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
                                                 <Button mnemonicParsing="false" onAction="#enrollStudentButton" text="Enroll" />
-                                                <Button mnemonicParsing="false" text="Drop" />
+                                                <Button mnemonicParsing="false" onAction="#dropEnrollButton" text="Drop" />
                                             </children>
                                         </HBox>
                                         <TextField fx:id="eFirstName" GridPane.columnIndex="1" />

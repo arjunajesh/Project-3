@@ -144,10 +144,10 @@ public class Roster {
      * @param profile student to be removed
      * @return returns true if student is removed, false if student is not in roster
      */
-    public boolean remove(Profile profile){
+    public String remove(Profile profile){
         if(find(profile) == -1){ // student does not exist
-            System.out.println(profile.toString() + " is not in the roster.");
-            return false;
+            return profile.toString() + " is not in the roster.";
+            //return false;
         }
         else{ // removing student
             int pivot = find(profile);
@@ -156,8 +156,8 @@ public class Roster {
             }
             roster[size] = null;
             size--;
-            System.out.println( profile.toString() + " removed from the roster.");
-            return true;
+            return profile.toString() + " removed from the roster.";
+            //return true;
         }
     }
 
@@ -206,7 +206,7 @@ public class Roster {
      * @param major new major of the student
      * @return true is major was changed, false if invalid major or student does not exist in roster
      */
-    public boolean change(Profile profile, String major){
+    public String change(Profile profile, String major){
         String majorL = major.toLowerCase();
         Major m;
         if (majorL.equals("bait")){
@@ -225,20 +225,17 @@ public class Roster {
             m = Major.EE;
         }
         else{
-            System.out.println("Major code invalid: " + major);
-            return false;
+            return "Major code invalid: " + major;
         }
 
         if(find(profile) == -1){
-            System.out.println(profile.toString() + " is not in the roster.");
-            return false;
+            return profile.toString() + " is not in the roster.";
         }
         else{
             int pivot = find(profile);
             roster[pivot].setMajor(m);
-            System.out.println(profile.toString() + " major changed to " + major);
         }
-        return true;
+        return profile.toString() + " major changed to " + major;
     }
 
     /**

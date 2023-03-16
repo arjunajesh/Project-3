@@ -65,9 +65,9 @@ public class Enrollment {
      * Removes a student from the enrollment list
      * @param enrollStudent the object to be removed.
      */
-    public void remove(EnrollStudent enrollStudent){
+    public String remove(EnrollStudent enrollStudent){
         if(find(enrollStudent.getProfile()) == -1) {
-            System.out.println(enrollStudent.getProfile() + " is not enrolled.");
+            return enrollStudent.getProfile() + " is not enrolled.";
         }
         else {
             int pivot = find(enrollStudent.getProfile());
@@ -76,7 +76,7 @@ public class Enrollment {
             }
             enrollStudents[size] = null;
             size--;
-            System.out.println(enrollStudent.getProfile() + " dropped.");
+            return enrollStudent.getProfile() + " dropped.";
         }
     }
 
