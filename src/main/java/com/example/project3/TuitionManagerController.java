@@ -7,6 +7,7 @@ import project1.*;
 
 public class TuitionManagerController {
     private Roster roster = new Roster();
+    private Enrollment enrollment = new Enrollment();
     @FXML
     private TextField firstName;
     @FXML
@@ -39,59 +40,95 @@ public class TuitionManagerController {
     @FXML
     private RadioButton itiRadio;
     @FXML
-    private RadioButton mathRadio;
+    private TextField creditsEnrolled;
+    @FXML
+    private TextField eFirstName;
+
+    @FXML
+    private TextField eLastName;
+    @FXML
+    private DatePicker eDOB;
 
     public void addStudentButton(ActionEvent e){
-        int ccKey = creditsCompletedIsValid(creditsCompleted.getText());
+        int ccKey = creditsIsValid(creditsCompleted.getText());
 
-        if(firstName.getText().isBlank()){
-            output.setText("Please enter first name of student");
-        }
-        else if(lastName.getText().isBlank()){
-            output.setText("Please enter last name of student");
-        }
-        else if(dob.getValue() == null){
-            output.setText("Please enter date of birth");
-        }
-        else if(creditsCompleted.getText().isBlank()){
-            output.setText("Please enter credits completed");
-        }
-        else if(ccKey != 2){
-            if(ccKey == 0){
-                output.setText("Credits completed must be a number");
-            }
-            else{
-                output.setText("Credits completed cannot be negative");
-            }
-        }
-        else {
-
-            //construct date from datepicker object
-            String[] dateParams = dob.getValue().toString().split("-");
-            Date d = new Date(Integer.parseInt(dateParams[0]), Integer.parseInt(dateParams[1]), Integer.parseInt(dateParams[2]));
-            /* way to turn string list into int list?? */
-
-            //construct major
-            Major m = getMajor();
-            String opText = "";
-            if(residentRadio.isSelected()){
-                opText = roster.addStudent(new Resident(firstName.getText(), lastName.getText(),
-                        d, m, Integer.parseInt(creditsCompleted.getText())));
-            }
-            else{ //non-resident chosen
-                if(tristateRadio.isSelected()){
-                    String state = nyRadio.isSelected() ? "NY" : "CT";
-                    opText = roster.addStudent(new TriState(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText()), state));
+        if(validateProfileFields(firstName, lastName, dob)) {
+            if (creditsCompleted.getText().isBlank()) {
+                output.setText("Please enter credits completed");
+            } else if (ccKey != 2) {
+                if (ccKey == 0) {
+                    output.setText("Credits completed must be a number");
+                } else {
+                    output.setText("Credits completed cannot be negative");
                 }
-                else{ //international chosen
-                    boolean isStudyAbroad = studyAbroadCheckBox.isSelected();
-                    opText = roster.addStudent(new International(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText()), isStudyAbroad));
+            } else {
+
+                int year = dob.getValue().getYear();
+                int month = dob.getValue().getMonth().getValue();
+                int day = dob.getValue().getDayOfMonth();
+                Date d = new Date(year, month, day);
+
+                //construct major
+                Major m = getMajor();
+                String opText = "";
+                if (residentRadio.isSelected()) {
+                    opText = roster.addStudent(new Resident(firstName.getText(), lastName.getText(),
+                            d, m, Integer.parseInt(creditsCompleted.getText())));
+                } else { //non-resident chosen
+                    if (tristateRadio.isSelected()) {
+                        String state = nyRadio.isSelected() ? "NY" : "CT";
+                        opText = roster.addStudent(new TriState(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText()), state));
+                    } else { //international chosen
+                        boolean isStudyAbroad = studyAbroadCheckBox.isSelected();
+                        opText = roster.addStudent(new International(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText()), isStudyAbroad));
+                    }
                 }
+                output.setText(opText);
             }
-            output.setText(opText);
         }
     }
-    public Major getMajor(){
+    public void enrollStudentButton(ActionEvent e){
+        int ccKey = creditsIsValid(creditsEnrolled.getText());
+        if(validateProfileFields(eFirstName, eLastName, eDOB)){
+            if (creditsCompleted.getText().isBlank()) {
+                output.setText("Please enter credits completed");
+            } else if (ccKey != 2) {
+                if (ccKey == 0) {
+                    output.setText("Credits completed must be a number");
+                } else {
+                    output.setText("Credits completed cannot be negative");
+                }
+            }
+            else {
+                int year = dob.getValue().getYear();
+                int month = dob.getValue().getMonth().getValue();
+                int day = dob.getValue().getDayOfMonth();
+                Date d = new Date(year, month, day);
+
+                enrollment.add(new EnrollStudent(new Profile(eFirstName.getText(), eLastName.getText(), d)
+                        , Integer.parseInt(creditsEnrolled.getText())), roster);
+            }
+        }
+    }
+    public void removeStudent(ActionEvent e){
+
+    }
+    private boolean validateProfileFields(TextField fname, TextField lname, DatePicker d ){
+        if(fname.getText().isBlank()){
+            output.setText("Please enter first name of student");
+            return false;
+        }
+        else if(lname.getText().isBlank()){
+            output.setText("Please enter last name of student");
+            return false;
+        }
+        else if(d.getValue() == null){
+            output.setText("Please enter date of birth");
+            return false;
+        }
+        return true;
+    }
+    private Major getMajor(){
         if(baitRadio.isSelected()){
             return Major.BAIT;
         }
@@ -108,10 +145,9 @@ public class TuitionManagerController {
             return Major.MATH;
         }
     }
-
-    public int creditsCompletedIsValid(String creditsCompleted){
+    private int creditsIsValid(String credits){
         try{
-            if(Integer.parseInt(creditsCompleted) < 0){
+            if(Integer.parseInt(credits) < 0){
                 return 1; // negative
             }
             else{

@@ -26,7 +26,15 @@ public class Enrollment {
      * Takes a student object and adds to end of enrollStudents array
      * @param enrollStudent the object to be added.
      */
-    public void add(EnrollStudent enrollStudent){
+    public String add(EnrollStudent enrollStudent, Roster roster){
+        Student s = roster.getStudent(enrollStudent.getProfile());
+        if(s == null){
+            return "Cannot enroll: " + enrollStudent.getProfile() + " is not in the roster";
+        }
+        else if(!s.isValid(enrollStudent.getCreditsEnrolled())){
+            return "Invalid Credit hours"; /* This error message does not align with project 2 specifications */
+        }
+
         int index = find(enrollStudent.getProfile());
         if(index != -1){
             enrollStudents[index].setCreditsEnrolled(enrollStudent.getCreditsEnrolled());
@@ -39,6 +47,7 @@ public class Enrollment {
                 grow();
             }
         }
+        return s.getProfile() + " enrolled " + enrollStudent.getCreditsEnrolled() + " credits";
     }
 
     /**
