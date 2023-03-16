@@ -40,6 +40,8 @@ public class TuitionManagerController {
     @FXML
     private RadioButton itiRadio;
     @FXML
+    private RadioButton mathRadio;
+    @FXML
     private TextField creditsEnrolled;
     @FXML
     private TextField eFirstName;
@@ -94,6 +96,30 @@ public class TuitionManagerController {
         Date d = new Date(year, month, day);
         String opText = "";
         opText = roster.remove(new Profile(firstName.getText(), lastName.getText(), d));
+        output.setText(opText);
+    }
+
+    public void changeMajorButton(ActionEvent e){
+        int year = dob.getValue().getYear();
+        int month = dob.getValue().getMonth().getValue();
+        int day = dob.getValue().getDayOfMonth();
+        Date d = new Date(year, month, day);
+        String opText = "";
+        if(baitRadio.isSelected()) {
+            opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "BAIT");
+        }
+        if(csRadio.isSelected()) {
+            opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "CS");
+        }
+        if(eeRadio.isSelected()) {
+            opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "EE");
+        }
+        if(itiRadio.isSelected()) {
+            opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "ITI");
+        }
+        if(mathRadio.isSelected()) {
+            opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "MATH");
+        }
         output.setText(opText);
     }
     public void enrollStudentButton(ActionEvent e){

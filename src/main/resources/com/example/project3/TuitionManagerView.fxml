@@ -104,7 +104,7 @@
                                             <children>
                                                 <Button fx:id="addButton" mnemonicParsing="false" onAction="#addStudentButton" text="Add" />
                                                 <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeStudentButton" text="Remove" />
-                                                <Button mnemonicParsing="false" text="Change Major" />
+                                                <Button fx:id="changeButton" mnemonicParsing="false" onAction="#changeMajorButton" text="Change Major" />
                                                 <Button mnemonicParsing="false" text="Load From File" />
                                             </children>
                                         </HBox>
