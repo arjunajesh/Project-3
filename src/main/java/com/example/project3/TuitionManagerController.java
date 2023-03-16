@@ -87,6 +87,15 @@ public class TuitionManagerController {
             }
         }
     }
+    public void removeStudentButton(ActionEvent e){
+        int year = dob.getValue().getYear();
+        int month = dob.getValue().getMonth().getValue();
+        int day = dob.getValue().getDayOfMonth();
+        Date d = new Date(year, month, day);
+        String opText = "";
+        opText = roster.remove(new Profile(firstName.getText(), lastName.getText(), d));
+        output.setText(opText);
+    }
     public void enrollStudentButton(ActionEvent e){
         int ccKey = creditsIsValid(creditsEnrolled.getText());
         if(validateProfileFields(eFirstName, eLastName, eDOB)){

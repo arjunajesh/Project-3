@@ -144,10 +144,10 @@ public class Roster {
      * @param profile student to be removed
      * @return returns true if student is removed, false if student is not in roster
      */
-    public boolean remove(Profile profile){
+    public String remove(Profile profile){
         if(find(profile) == -1){ // student does not exist
-            System.out.println(profile.toString() + " is not in the roster.");
-            return false;
+            return profile.toString() + " is not in the roster.";
+            //return false;
         }
         else{ // removing student
             int pivot = find(profile);
@@ -156,8 +156,8 @@ public class Roster {
             }
             roster[size] = null;
             size--;
-            System.out.println( profile.toString() + " removed from the roster.");
-            return true;
+            return profile.toString() + " removed from the roster.";
+            //return true;
         }
     }
 
