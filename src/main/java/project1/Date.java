@@ -5,42 +5,42 @@ package project1;
  */
 import java.util.Calendar;
 public class Date implements Comparable<Date>{
-    private int year;
-    private int month;
-    private int day;
-    private final long MILLISECONDS_PER_YEAR = 365l * 24 * 60 * 60 * 1000;
+    private final int year;
+    private final int month;
+    private final int day;
+    private final long MILLISECONDS_PER_YEAR = 365L * 24 * 60 * 60 * 1000;
 
     public static void main(String[] args){
         final String PASSED = "PASSED";
         final String FAILED = "FAILED";
 
         Date d = new Date("2/29/2003"); // testing leap year
-        System.out.println("Testing isValid: " + d.toString());
-        System.out.println(d.isValid() == false ? PASSED:FAILED);
+        System.out.println("Testing isValid: " + d);
+        System.out.println(!d.isValid() ? PASSED:FAILED);
 
         d = new Date("4/31/2003"); // invalid day on month
-        System.out.println("Testing isValid: " + d.toString());
-        System.out.println(d.isValid() == false ? PASSED:FAILED);
+        System.out.println("Testing isValid: " + d);
+        System.out.println(!d.isValid() ? PASSED:FAILED);
 
         d = new Date("13/31/2003"); // invalid month
-        System.out.println("Testing isValid: " + d.toString());
-        System.out.println(d.isValid() == false ? PASSED:FAILED);
+        System.out.println("Testing isValid: " + d);
+        System.out.println(!d.isValid() ? PASSED:FAILED);
 
         d = new Date("-1/31/2003"); // invalid month (negative)
-        System.out.println("Testing isValid: " + d.toString());
-        System.out.println(d.isValid() == false ? PASSED:FAILED);
+        System.out.println("Testing isValid: " + d);
+        System.out.println(!d.isValid() ? PASSED:FAILED);
 
         d = new Date("3/32/2003"); // invalid day of month
-        System.out.println("Testing isValid: " + d.toString());
-        System.out.println(d.isValid() == false ? PASSED:FAILED);
+        System.out.println("Testing isValid: " + d);
+        System.out.println(!d.isValid() ? PASSED:FAILED);
 
         d = new Date("3/31/2003"); // valid date
-        System.out.println("Testing isValid: " + d.toString());
-        System.out.println(d.isValid() == true ? PASSED:FAILED);
+        System.out.println("Testing isValid: " + d);
+        System.out.println(d.isValid() ? PASSED:FAILED);
 
         d = new Date("2/29/2004"); // valid leap year date
-        System.out.println("Testing isValid: " + d.toString());
-        System.out.println(d.isValid() == true ? PASSED:FAILED);
+        System.out.println("Testing isValid: " + d);
+        System.out.println(d.isValid() ? PASSED:FAILED);
     }
 
     /**
@@ -57,7 +57,7 @@ public class Date implements Comparable<Date>{
      * @param date
      */
     public Date(String date){
-        String d[] = date.split("/");
+        String[] d = date.split("/");
         this.month = Integer.parseInt(d[0]);
         this.day = Integer.parseInt(d[1]);
         this.year = Integer.parseInt(d[2]);
@@ -82,7 +82,7 @@ public class Date implements Comparable<Date>{
 
             return isOver16(c);
         }catch(IllegalArgumentException e){
-            System.out.println("DOB invalid: " + this.toString() + " not a valid calendar date!");
+            System.out.println("DOB invalid: " + this + " not a valid calendar date!");
             return false;
         }
     }
@@ -101,7 +101,7 @@ public class Date implements Comparable<Date>{
             return true;
         }
         else{
-            System.out.println("DOB invalid: " + this.toString() + " younger than 16 years old.");
+            System.out.println("DOB invalid: " + this + " younger than 16 years old.");
             return false;
         }
          // checks that the student is 16 or older, also makes sure the date is not in the future or today's date as per requirements of project
@@ -144,16 +144,10 @@ public class Date implements Comparable<Date>{
      */
     @Override
     public boolean equals(Object o){
-        if(!(o instanceof Date)){
+        if(!(o instanceof Date other)){
             return false;
         }
-        Date other = (Date) o;
-        if(this.year == other.year && this.month == other.month && this.day == other.day){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return this.year == other.year && this.month == other.month && this.day == other.day;
     }
 
     /**
@@ -161,6 +155,6 @@ public class Date implements Comparable<Date>{
      */
     @Override
     public String toString(){
-        return Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
+        return month + "/" + day + "/" + year;
     }
 }

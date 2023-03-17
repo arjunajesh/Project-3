@@ -10,6 +10,9 @@ public class Roster {
     public static final int CAPACITY = 4;
     private static final int CREDITS_REQUIRED_GRADUATION = 120;
 
+    private static final int MIN_SCHOLARSHIP = 0;
+    private static final int MAX_SCHOLARSHIP = 10000;
+
 
     /**
      * Constructor for Roster Object
@@ -139,6 +142,46 @@ public class Roster {
         return m;
     }
 
+    public void awardScholarShip(Profile p, int scholarshipAmount, Enrollment enrollment) throws Exception{
+        Student s = getStudent(p);
+        //verify student is in roster
+        if(s == null){
+            throw new Exception(p + " is not in the roster");
+        }
+        //verify student is a resident
+        if(!s.isResident()){
+            throw new Exception(s.getProfile().toString() + " (" + getTypeString(s) + ")" + " is not eligible for the scholarship.");
+        }
+        //verify student is not part-time
+        if(!enrollment.getEnrolledStudent(s.getProfile()).isFulltime()){
+            throw new Exception(p + " part time student is not eligible for the scholarship.");
+        }
+        //verify scholarship amount is valid
+        if (scholarshipAmount <= MIN_SCHOLARSHIP || scholarshipAmount > MAX_SCHOLARSHIP){
+            throw new Exception(scholarshipAmount + ": invalid amount.");
+        }
+
+        Resident r = (Resident) s;
+        r.setScholarship(scholarshipAmount);
+
+    }
+
+    private String getTypeString(Student s){
+        if(s instanceof Resident){
+            return "Resident";
+        }
+        else if(s instanceof International){
+            return "International student" + (((International) s).isStudyAbroad() ? "study abroad":"");
+        }
+        else if(s instanceof TriState){
+            return "Tri-state";
+        }
+        else if(s instanceof NonResident){
+            return "Non-Resident";
+        }
+        else return "";
+    }
+
     /**
      * Removes specified student from roster
      * @param profile student to be removed
@@ -166,9 +209,7 @@ public class Roster {
      */
     private void grow(){
         Student[] newRoster = new Student[size + CAPACITY];
-        for(int i = 0; i < roster.length; i++){
-            newRoster[i] = roster[i];
-        }
+        System.arraycopy(roster, 0, newRoster, 0, roster.length);
         roster = newRoster;
     }
 

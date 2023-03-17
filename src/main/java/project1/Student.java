@@ -5,7 +5,7 @@ package project1;
  * @author Arjun Ajesh, Nathan Roh
  */
 public abstract class Student implements Comparable<Student> {
-    private Profile profile;
+    private final Profile profile;
     private Major major;
     private int creditCompleted;
     private String standing;
@@ -109,10 +109,9 @@ public abstract class Student implements Comparable<Student> {
      */
     @Override
     public boolean equals(Object o){
-        if (!(o instanceof Student)){
+        if (!(o instanceof Student other)){
             return false;
         }
-        Student other = (Student) o;
         return this.profile.equals(other.profile);
     }
 
@@ -122,7 +121,7 @@ public abstract class Student implements Comparable<Student> {
      */
     @Override
     public String toString(){
-        return getProfile().toString() + " " + major.toString() + " credits completed: " + Integer.toString(creditCompleted) +
+        return getProfile().toString() + " " + major.toString() + " credits completed: " + creditCompleted +
                 " (" + standing + ")";
     }
 

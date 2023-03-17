@@ -11,9 +11,9 @@ public enum Major {
     ITI("ITI", "04:547", "SC&I"),
     EE("EE", "14:332", "SOE");
 
-    private String majorName;
-    private String majorCode;
-    private String school;
+    private final String majorName;
+    private final String majorCode;
+    private final String school;
 
     /**
      * Constructor for Major Class

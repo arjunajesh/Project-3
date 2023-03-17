@@ -5,9 +5,9 @@ package project1;
  * @author Arjun Ajesh, Nathan Roh
  */
 public class Profile implements Comparable<Profile>{
-    private String lname;
-    private String fname;
-    private Date dob;
+    private final String lname;
+    private final String fname;
+    private final Date dob;
 
     /**
      * Constructor for Profile Class
@@ -53,15 +53,11 @@ public class Profile implements Comparable<Profile>{
     @Override
     public boolean equals(Object o){
 
-        if(!(o instanceof Profile)){
+        if(!(o instanceof Profile other)){
             return false;
         }
-        Profile other = (Profile) o;
 
-        if (this.lname.toLowerCase().equals(other.lname.toLowerCase()) && this.fname.toLowerCase().equals(other.fname.toLowerCase()) && this.dob.equals(other.dob)){
-            return true;
-        }
-        return false;
+        return this.lname.equalsIgnoreCase(other.lname) && this.fname.equalsIgnoreCase(other.fname) && this.dob.equals(other.dob);
     }
     /**
      * @return  student's first name, last name, and date of birth respectively

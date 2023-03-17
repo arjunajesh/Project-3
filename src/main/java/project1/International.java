@@ -4,7 +4,7 @@ package project1;
  * @author Arjun Ajesh, Nathan Roh
  */
 public class International extends NonResident{
-    private boolean isStudyAbroad;
+    private final boolean isStudyAbroad;
     private static final int MIN_CREDITS_FULLTIME = 12;
     private static final int ADDITIONAL_CREDITS = 16;
     private static final int TUITION_COST = 29737;

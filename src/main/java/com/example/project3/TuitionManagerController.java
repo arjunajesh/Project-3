@@ -6,8 +6,8 @@ import javafx.scene.control.*;
 import project1.*;
 
 public class TuitionManagerController {
-    private Roster roster = new Roster();
-    private Enrollment enrollment = new Enrollment();
+    private final Roster roster = new Roster();
+    private final Enrollment enrollment = new Enrollment();
     @FXML
     private TextField firstName;
     @FXML
@@ -30,7 +30,6 @@ public class TuitionManagerController {
     private CheckBox studyAbroadCheckBox;
     @FXML
     private RadioButton residentRadio;
-
     @FXML
     private RadioButton baitRadio;
     @FXML
@@ -45,135 +44,175 @@ public class TuitionManagerController {
     private TextField creditsEnrolled;
     @FXML
     private TextField eFirstName;
-
     @FXML
     private TextField eLastName;
     @FXML
     private DatePicker eDOB;
+    @FXML
+    private TextField sFirstName;
+    @FXML
+    private TextField sLastName;
+    @FXML
+    private DatePicker sDOB;
+    @FXML
+    private TextField scholarshipAmount;
 
     public void addStudentButton(ActionEvent e){
-        int ccKey = creditsIsValid(creditsCompleted.getText());
+        Date d;
+        try{
+            d = validateProfileFields(firstName, lastName, dob);
+        }
+        catch(Exception ex){
+           output.appendText("\n" + ex.getMessage());
+           return;
+        }
+        try{
+            validateIntegerField(creditsCompleted.getText());
+        }
+        catch(Exception ex){
+            output.appendText("\nCredits Completed" + ex.getMessage());
+            return;
+        }
 
-        if(validateProfileFields(firstName, lastName, dob)) {
-            if (creditsCompleted.getText().isBlank()) {
-                output.setText("Please enter credits completed");
-            } else if (ccKey != 2) {
-                if (ccKey == 0) {
-                    output.setText("Credits completed must be a number");
-                } else {
-                    output.setText("Credits completed cannot be negative");
-                }
-            } else {
-
-                int year = dob.getValue().getYear();
-                int month = dob.getValue().getMonth().getValue();
-                int day = dob.getValue().getDayOfMonth();
-                Date d = new Date(year, month, day);
-
-                //construct major
-                Major m = getMajor();
-                String opText = "";
-                if (residentRadio.isSelected()) {
-                    opText = roster.addStudent(new Resident(firstName.getText(), lastName.getText(),
-                            d, m, Integer.parseInt(creditsCompleted.getText())));
-                } else { //non-resident chosen
-                    if (tristateRadio.isSelected()) {
-                        String state = nyRadio.isSelected() ? "NY" : "CT";
-                        opText = roster.addStudent(new TriState(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText()), state));
-                    } else { //international chosen
-                        boolean isStudyAbroad = studyAbroadCheckBox.isSelected();
-                        opText = roster.addStudent(new International(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText()), isStudyAbroad));
-                    }
-                }
-                output.setText(opText);
+        //construct major
+        Major m = getMajor();
+        String opText = "";
+        if (residentRadio.isSelected()) {
+            opText = roster.addStudent(new Resident(firstName.getText(), lastName.getText(),
+                    d, m, Integer.parseInt(creditsCompleted.getText())));
+        } else { //non-resident chosen
+            if (tristateRadio.isSelected()) {
+                String state = nyRadio.isSelected() ? "NY" : "CT";
+                opText = roster.addStudent(new TriState(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText()), state));
+            } else { //international chosen
+                boolean isStudyAbroad = studyAbroadCheckBox.isSelected();
+                opText = roster.addStudent(new International(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText()), isStudyAbroad));
             }
         }
+        output.appendText("\n"  + opText);
+
+
     }
     public void removeStudentButton(ActionEvent e){
-        if(validateProfileFields(firstName, lastName, dob)) {
-            int year = dob.getValue().getYear();
-            int month = dob.getValue().getMonth().getValue();
-            int day = dob.getValue().getDayOfMonth();
-            Date d = new Date(year, month, day);
-            String opText = "";
-            opText = roster.remove(new Profile(firstName.getText(), lastName.getText(), d));
-            output.setText(opText);
+        Date d;
+        try{
+            d = validateProfileFields(firstName, lastName, dob);
         }
-    }
+        catch(Exception ex){
+            output.appendText("\n" + ex.getMessage());
+            return;
+        }
 
+        String opText = "";
+        opText = roster.remove(new Profile(firstName.getText(), lastName.getText(), d));
+        output.appendText("\n" + opText);
+    }
     public void changeMajorButton(ActionEvent e){
-        if(validateProfileFields(firstName, lastName, dob)) {
-            int year = dob.getValue().getYear();
-            int month = dob.getValue().getMonth().getValue();
-            int day = dob.getValue().getDayOfMonth();
-            Date d = new Date(year, month, day);
-            String opText = "";
-            if(baitRadio.isSelected()) {
-                opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "BAIT");
-            }
-            if(csRadio.isSelected()) {
-                opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "CS");
-            }
-            if(eeRadio.isSelected()) {
-                opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "EE");
-            }
-            if(itiRadio.isSelected()) {
-                opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "ITI");
-            }
-            if(mathRadio.isSelected()) {
-                opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "MATH");
-            }
-            output.setText(opText);
+        Date d;
+        try{
+            d = validateProfileFields(firstName, lastName, dob);
         }
+        catch(Exception ex){
+            output.appendText("\n" + ex.getMessage());
+            return;
+        }
+        String opText = "";
+        if(baitRadio.isSelected()) {
+            opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "BAIT");
+        }
+        if(csRadio.isSelected()) {
+            opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "CS");
+        }
+        if(eeRadio.isSelected()) {
+            opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "EE");
+        }
+        if(itiRadio.isSelected()) {
+            opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "ITI");
+        }
+        if(mathRadio.isSelected()) {
+            opText = roster.change(new Profile(firstName.getText(), lastName.getText(), d), "MATH");
+        } /* Use getMajor() method to save above lines of code. roster.change() will have to be reconfigured to
+             accept type Major*/
+        output.appendText("\n" + opText);
+
     }
     public void enrollStudentButton(ActionEvent e){
-        int ccKey = creditsIsValid(creditsEnrolled.getText());
-        if(validateProfileFields(eFirstName, eLastName, eDOB)){
-            if (creditsCompleted.getText().isBlank()) {
-                output.setText("Please enter credits completed");
-            } else if (ccKey != 2) {
-                if (ccKey == 0) {
-                    output.setText("Credits completed must be a number");
-                } else {
-                    output.setText("Credits completed cannot be negative");
-                }
-            }
-            else {
-                int year = dob.getValue().getYear();
-                int month = dob.getValue().getMonth().getValue();
-                int day = dob.getValue().getDayOfMonth();
-                Date d = new Date(year, month, day);
-                String opText = enrollment.add(new EnrollStudent(new Profile(eFirstName.getText(), eLastName.getText(), d)
-                        , Integer.parseInt(creditsEnrolled.getText())), roster);
-                output.setText(opText);
-            }
+        Date d;
+        try{
+            d = validateProfileFields(eFirstName, eLastName, eDOB);
         }
+        catch(Exception ex){
+            output.appendText("\n" + ex.getMessage());
+            return;
+        }
+        try{
+            validateIntegerField(creditsEnrolled.getText());
+        }
+        catch(Exception ex){
+            output.appendText("\nCredits Enrolled" + ex.getMessage());
+            return;
+        }
+
+        String opText = enrollment.add(new EnrollStudent(new Profile(eFirstName.getText(), eLastName.getText(), d)
+                , Integer.parseInt(creditsEnrolled.getText())), roster);
+        output.appendText("\n" + opText);
+
     }
     public void dropEnrollButton(ActionEvent e){
-        if(validateProfileFields(eFirstName, eLastName, eDOB)) {
-            int year = dob.getValue().getYear();
-            int month = dob.getValue().getMonth().getValue();
-            int day = dob.getValue().getDayOfMonth();
-            Date d = new Date(year, month, day);
-            String opText = enrollment.remove(new EnrollStudent(new Profile(eFirstName.getText(), eLastName.getText()
-                    ,d), 0));
-            output.setText(opText);
+        Date d;
+        try{
+            d = validateProfileFields(eFirstName, eLastName, eDOB);
         }
+        catch(Exception ex){
+            output.appendText("\n" + ex.getMessage());
+            return;
+        }
+        String opText = enrollment.remove(new EnrollStudent(new Profile(eFirstName.getText(), eLastName.getText()
+                ,d), 0));
+        output.appendText("\n" + opText);
+
     }
-    private boolean validateProfileFields(TextField fname, TextField lname, DatePicker d ){
+    public void scholarshipButton(ActionEvent e){
+        Date d;
+        try{
+            d = validateProfileFields(sFirstName, sLastName, sDOB);
+        }
+        catch(Exception ex){
+            output.appendText("\n" + ex.getMessage());
+            return;
+        }
+        try{
+            validateIntegerField(scholarshipAmount.getText());
+        }
+        catch(Exception ex){
+            output.appendText("Scholarship Amount" + ex.getMessage());
+        }
+        try{
+            roster.awardScholarShip(new Profile(sFirstName.getText(), sLastName.getText(), d),
+                    Integer.parseInt(scholarshipAmount.getText()), enrollment);
+        }
+        catch(Exception ex){
+            output.appendText(ex.getMessage());
+        }
+
+    }
+    private Date validateProfileFields(TextField fname, TextField lname, DatePicker DOB) throws Exception{
         if(fname.getText().isBlank()){
-            output.setText("Please enter first name of student");
-            return false;
+            throw new Exception("Please enter first name");
         }
-        else if(lname.getText().isBlank()){
-            output.setText("Please enter last name of student");
-            return false;
+        if(lname.getText().isBlank()){
+            throw new Exception("Please enter last name");
         }
-        else if(d.getValue() == null){
-            output.setText("Please enter date of birth");
-            return false;
+        if(DOB.getValue() == null){
+            throw new Exception("Please enter date of birth");
         }
-        return true;
+
+        int year = dob.getValue().getYear();
+        int month = dob.getValue().getMonth().getValue();
+        int day = dob.getValue().getDayOfMonth();
+        Date date = new Date(year, month, day);
+
+        return date;
     }
     private Major getMajor(){
         if(baitRadio.isSelected()){
@@ -192,21 +231,20 @@ public class TuitionManagerController {
             return Major.MATH;
         }
     }
-    private int creditsIsValid(String credits){
+    private void validateIntegerField(String credits) throws Exception{
+        if(credits.isBlank()){
+            throw new Exception(" cannot be empty");
+        }
         try{
-            if(Integer.parseInt(credits) < 0){
-                return 1; // negative
+            int c = Integer.parseInt(credits);
+            if(c < 0){
+                throw new Exception(" cannot be negative");
             }
-            else{
-                return 2; // valid
-            }
-
         }
         catch(NumberFormatException e){
-            return 0; // not an integer
+            throw new Exception(" must be a number");
         }
     }
-
     public void enableNonResidentSettings(ActionEvent e){
         //enable non resident settings
         tristateRadio.setDisable(false);
@@ -259,5 +297,4 @@ public class TuitionManagerController {
         nyRadio.setSelected(false);
         ctRadio.setSelected(false);
     }
-
 }

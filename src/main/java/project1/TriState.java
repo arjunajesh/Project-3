@@ -5,7 +5,7 @@ package project1;
  * @author Arjun Ajesh, Nathan Roh
  */
 public class TriState extends NonResident {
-    private String state;
+    private final String state;
     private static final int MIN_CREDITS_FULLTIME = 12;
     private static final int ADDITIONAL_CREDITS = 16;
     private static final int TUITION_COST = 29737;

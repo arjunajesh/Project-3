@@ -4,7 +4,7 @@ package project1;
  * @author Arjun Ajesh, Nathan Roh
  */
 public class EnrollStudent {
-    private Profile profile;
+    private final Profile profile;
     private int creditsEnrolled;
     private static final int FULL_TIME_CREDITS = 12;
 
@@ -18,7 +18,7 @@ public class EnrollStudent {
     public EnrollStudent(Profile profile, int creditsEnrolled){
         this.profile = profile;
         this.creditsEnrolled = creditsEnrolled;
-        this.fullTime = creditsEnrolled >= FULL_TIME_CREDITS ? true : false;
+        this.fullTime = creditsEnrolled >= FULL_TIME_CREDITS;
     }
 
     /**
@@ -27,10 +27,9 @@ public class EnrollStudent {
      * @return returns false if object is not an instance of EnrollStudent and profile if so
      */
     public boolean equals(Object o){
-        if (!(o instanceof EnrollStudent)){
+        if (!(o instanceof EnrollStudent other)){
             return false;
         }
-        EnrollStudent other = (EnrollStudent) o;
         return this.profile.equals(other.profile);
     }
 
@@ -40,7 +39,7 @@ public class EnrollStudent {
      */
     public void setCreditsEnrolled(int creditsEnrolled){
         this.creditsEnrolled = creditsEnrolled;
-        this.fullTime = this.creditsEnrolled >= FULL_TIME_CREDITS ? true : false;
+        this.fullTime = this.creditsEnrolled >= FULL_TIME_CREDITS;
     }
 
     /**
@@ -61,7 +60,7 @@ public class EnrollStudent {
      * @return returns profile of student in proper string format
      */
     public String toString() {
-        return getProfile().toString() + ": credits enrolled: " + Integer.toString(getCreditsEnrolled());
+        return getProfile().toString() + ": credits enrolled: " + getCreditsEnrolled();
     }
 
     /**

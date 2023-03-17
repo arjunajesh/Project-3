@@ -55,9 +55,7 @@ public class Enrollment {
      */
     public void grow(){
         EnrollStudent[] newEnrollment = new EnrollStudent[size + CAPACITY];
-        for(int i = 0; i < enrollStudents.length; i++){
-            newEnrollment[i] = enrollStudents[i];
-        }
+        System.arraycopy(enrollStudents, 0, newEnrollment, 0, enrollStudents.length);
         enrollStudents = newEnrollment;
     }
 
