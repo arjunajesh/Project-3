@@ -317,34 +317,36 @@ public class Roster {
     /**
      * Prints out the roster sorted by standing
      */
-   public void sortByStanding() {
+   public String sortByStanding() {
+       StringBuilder sb = new StringBuilder();
        if (size == 0) {
-           System.out.println("Student roster is empty!");
+           return "Student roster is empty!";
        } else {
            sort();
-           System.out.println("** Student roster sorted by standing **");
+           sb.append("\n** Student roster sorted by standing **");
            for (int i = 0; i < size; i++) {
                if (roster[i].getStanding().equals("Freshman")) {
-                   System.out.println(roster[i] + getStudentInfo(roster[i]));
+                   sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                }
            }
            for (int i = 0; i < size; i++) {
                if (roster[i].getStanding().equals("Junior")) {
-                   System.out.println(roster[i] + getStudentInfo(roster[i]));
+                   sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                }
            }
            for (int i = 0; i < size; i++) {
                if (roster[i].getStanding().equals("Senior")) {
-                   System.out.println(roster[i] + getStudentInfo(roster[i]));
+                   sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                }
            }
            for (int i = 0; i < size; i++) {
                if (roster[i].getStanding().equals("Sophomore")) {
-                   System.out.println(roster[i] + getStudentInfo(roster[i]));
+                   sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                }
            }
-           System.out.println("* end of roster *");
+           sb.append("\n* end of roster *");
        }
+       return sb.toString();
    }
 
     /**
@@ -393,12 +395,21 @@ public class Roster {
     /**
      * Prints the roster
      */
-    public void printRoster(){
+    public String printRoster(){
+        if(size == 0){
+            return "Student roster is empty!";
+        }
+        sort();
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n** Student roster sorted by last name, first name, DOB **");
         for(int i = 0; i < size; i++){
             if(this.roster[i] != null) {
-                System.out.println(roster[i] + getStudentInfo(roster[i]));
+                //System.out.println(roster[i] + getStudentInfo(roster[i]));
+                sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
             }
         }
+        sb.append("\n* end of roster *");
+        return sb.toString();
     }
     public static String getStudentInfo(Student s){
         if(s instanceof Resident){

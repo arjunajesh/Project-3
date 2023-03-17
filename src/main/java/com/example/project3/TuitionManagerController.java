@@ -196,6 +196,12 @@ public class TuitionManagerController {
         }
 
     }
+    public void printRosterButton(ActionEvent e){
+        output.appendText(roster.printRoster());
+    }
+    public void printRosterStandingButton(ActionEvent e){
+        output.appendText(roster.sortByStanding());
+    }
     private Date validateProfileFields(TextField fname, TextField lname, DatePicker DOB) throws Exception{
         if(fname.getText().isBlank()){
             throw new Exception("Please enter first name");

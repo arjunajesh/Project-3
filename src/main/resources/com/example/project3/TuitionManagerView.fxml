@@ -177,9 +177,9 @@
                                     <menus>
                                         <Menu mnemonicParsing="false" text="Roster">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="Print by Profile" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printRosterButton" text="Print by Profile" />
                                                 <MenuItem mnemonicParsing="false" text="Print by School and Major" />
-                                                <MenuItem mnemonicParsing="false" text="Print by Standing" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printRosterStandingButton" text="Print by Standing" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="School/College">
