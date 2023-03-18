@@ -202,6 +202,30 @@ public class TuitionManagerController {
     public void printRosterStandingButton(ActionEvent e){
         output.appendText(roster.sortByStanding());
     }
+    public void printRosterSchoolMajorButton(ActionEvent e){
+        output.appendText(roster.sortBySchoolMajor());
+    }
+    public void printEligibleGradsButton(ActionEvent e){
+        output.appendText(roster.printEligibleGraduates());
+    }
+    public void printRBSButton(ActionEvent e){
+        output.appendText(roster.printSchool("RBS"));
+    }
+    public void printSASButton(ActionEvent e){
+        output.appendText(roster.printSchool("SAS"));
+    }
+    public void printSCIButton(ActionEvent e){
+        output.appendText(roster.printSchool("SC&I"));
+    }
+    public void printSOEButton(ActionEvent e){
+        output.appendText(roster.printSchool("SOE"));
+    }
+    public void printCurrentEnrollmentButton(ActionEvent e){
+        output.appendText(enrollment.printEnrollment());
+    }
+    public void printTuitionDueButton(ActionEvent e){
+        output.appendText(enrollment.printTuition(roster));
+    }
     private Date validateProfileFields(TextField fname, TextField lname, DatePicker DOB) throws Exception{
         if(fname.getText().isBlank()){
             throw new Exception("Please enter first name");

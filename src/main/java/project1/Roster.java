@@ -352,44 +352,46 @@ public class Roster {
     /**
      * Prints out the roster sorted by school, major
      */
-   public void sortBySchoolMajor(){
+   public String sortBySchoolMajor(){
+       StringBuilder sb = new StringBuilder();
        if (size == 0) {
-           System.out.println("Student roster is empty!");
+           return "Student roster is empty!";
        } else {
            sort();
-           System.out.println("** Student roster sorted by school, major **");
+           sb.append("\n** Student roster sorted by school, major **");
            for(int i = 0; i < size; i++){
                if(roster[i].getMajor().getMajorName().equals("BAIT")){
-                   System.out.println(roster[i] + getStudentInfo(roster[i]));
+                   sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                }
            }
            for(int i = 0; i < size; i++){
                if(roster[i].getMajor().getMajorName().equals("CS")){
-                   System.out.println(roster[i] + getStudentInfo(roster[i]));
+                   sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                }
            }
            for(int i = 0; i < size; i++){
                if(roster[i].getMajor().getMajorName().equals("MATH")){
-                   System.out.println(roster[i] + getStudentInfo(roster[i]));
+                   sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                }
            }
            for(int i = 0; i < size; i++){
                if(roster[i].getMajor().getMajorName().equals("SC&I")){
-                   System.out.println(roster[i] + getStudentInfo(roster[i]));
+                   sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                }
            }
            for(int i = 0; i < size; i++){
                if(roster[i].getMajor().getMajorName().equals("ITI")){
-                   System.out.println(roster[i] + getStudentInfo(roster[i]));
+                   sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                }
            }
            for(int i = 0; i < size; i++){
                if(roster[i].getMajor().getMajorName().equals("EE")){
-                   System.out.println(roster[i] + getStudentInfo(roster[i]));
+                   sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                }
            }
-           System.out.println("* end of roster *");
+           sb.append("\n* end of roster *");
        }
+       return sb.toString();
    }
 
     /**
@@ -404,7 +406,6 @@ public class Roster {
         sb.append("\n** Student roster sorted by last name, first name, DOB **");
         for(int i = 0; i < size; i++){
             if(this.roster[i] != null) {
-                //System.out.println(roster[i] + getStudentInfo(roster[i]));
                 sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
             }
         }
@@ -426,37 +427,42 @@ public class Roster {
         }
         else return "";
     }
-    public void printEligibleGraduates(){ //print eligible graduates
-        System.out.println("** list of students eligible for graduation **");
+    public String printEligibleGraduates(){ //print eligible graduates
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n** list of students eligible for graduation **");
         for(int i = 0; i < size; i++){
             Student s = roster[i];
-            if(s.getCreditCompleted() >= CREDITS_REQUIRED_GRADUATION)
-            System.out.println(roster[i] + getStudentInfo(roster[i]));
+            if(s.getCreditCompleted() >= CREDITS_REQUIRED_GRADUATION){
+                sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
+            }
         }
+        return sb.toString();
     }
 
     /**
      * Prints the students in a specified school
      * @param school
      */
-    public void printSchool(String school){
+    public String printSchool(String school){
+        StringBuilder sb = new StringBuilder();
         if(!("RBS".equalsIgnoreCase(school)) &&
            !("SAS".equalsIgnoreCase(school)) &&
            !("SC&I".equalsIgnoreCase(school)) &&
            !("SOE".equalsIgnoreCase(school))){
-            System.out.println("School doesn't exist: " + school);
+            sb.append("\nSchool doesn't exist: " + school);
         }
         if(this.roster[0] == null){
-            System.out.println("Student roster is empty!");
+            sb.append("\nStudent roster is empty!");
         }
         sort();
-        System.out.println("* Students in " + school + " *");
+        sb.append("\n* Students in " + school + " *");
         for(int i = 0; i < size; i++){
             if((this.roster[i].getSchool()).equalsIgnoreCase(school) && (this.roster[i] != null)){
-                System.out.println(this.roster[i] + getStudentInfo(this.roster[i]));
+                sb.append("\n" + this.roster[i] + getStudentInfo(this.roster[i]));
             }
         }
-        System.out.println("* end of list *");
+        sb.append("\n* end of list *");
+        return sb.toString();
     }
 
     /**

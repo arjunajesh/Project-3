@@ -178,21 +178,23 @@
                                         <Menu mnemonicParsing="false" text="Roster">
                                             <items>
                                                 <MenuItem mnemonicParsing="false" onAction="#printRosterButton" text="Print by Profile" />
-                                                <MenuItem mnemonicParsing="false" text="Print by School and Major" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printRosterSchoolMajorButton" text="Print by School and Major" />
                                                 <MenuItem mnemonicParsing="false" onAction="#printRosterStandingButton" text="Print by Standing" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printEligibleGradsButton" text="Print Eligible Graduates" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="School/College">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="RBS" />
-                                                <MenuItem mnemonicParsing="false" text="SAS" />
-                                                <MenuItem mnemonicParsing="false" text="SC&amp;I" />
-                                                <MenuItem mnemonicParsing="false" text="SOE" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printRBSButton" text="RBS" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printSASButton" text="SAS" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printSCIButton" text="SC&amp;I" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printSOEButton" text="SOE" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="Enrollment">
                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="About" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printCurrentEnrollmentButton" text="Print Current Enrollment" />
+                                                <MenuItem mnemonicParsing="false" onAction="#printTuitionDueButton" text="Print Tuition Due" />
                                             </items>
                                         </Menu>
                                     </menus>
