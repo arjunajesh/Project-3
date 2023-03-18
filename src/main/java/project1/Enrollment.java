@@ -95,42 +95,46 @@ public class Enrollment {
     /**
      * Prints the enrollment list
      */
-    public void printEnrollment(){
+    public String printEnrollment(){
+        StringBuilder sb = new StringBuilder();
         if(this.enrollStudents[0] == null) {
-            System.out.println("Enrollment is empty!");
+            sb.append("\nEnrollment is empty!");
         }
         else {
-            System.out.println("** Enrollment **");
+            sb.append("\n** Enrollment **");
             for (int i = 0; i < size; i++) {
                 if (this.enrollStudents[i] != null) {
-                    System.out.println(enrollStudents[i].toString());
+                    sb.append("\n" + enrollStudents[i].toString());
                 }
             }
-            System.out.println("* end of enrollment *");
+            sb.append("\n* end of enrollment *");
         }
+        return sb.toString();
     }
 
     /**
      * Prints students' profile information and tuition
      * @param roster the object to be used to get student profiles.
      */
-    public void printTuition(Roster roster){
+    public String printTuition(Roster roster){
+        StringBuilder sb = new StringBuilder();
         if(size == 0) {
-            System.out.println("Student roster is empty!");
+            sb.append("\nStudent roster is empty!");
         }
         else {
-            System.out.println("** Tuition due **");
+            sb.append("\n** Tuition due **");
             for(int i = 0; i < size; i++) {
                 EnrollStudent es = enrollStudents[i];
                 Student s = roster.getStudent(es.getProfile());
                 DecimalFormat decimalFormat = new DecimalFormat("#.00");
                 decimalFormat.setGroupingUsed(true);
                 decimalFormat.setGroupingSize(3);
-                System.out.println(s.getProfile() + " " + getStudentInfo(s) + " enrolled " +
+                sb.append("\n" + s.getProfile() + " " + getStudentInfo(s) + " enrolled " +
                         es.getCreditsEnrolled() + " credits: tuition due: $" + decimalFormat.format(s.tuitionDue(es.getCreditsEnrolled())));
             }
-            System.out.println("* end of tuition due *");
+            sb.append("\n* end of tuition due *");
         }
+        return sb.toString();
     }
 
     /**
