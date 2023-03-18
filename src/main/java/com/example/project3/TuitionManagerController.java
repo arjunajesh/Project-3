@@ -237,9 +237,9 @@ public class TuitionManagerController {
             throw new Exception("Please enter date of birth");
         }
 
-        int year = dob.getValue().getYear();
-        int month = dob.getValue().getMonth().getValue();
-        int day = dob.getValue().getDayOfMonth();
+        int year = DOB.getValue().getYear();
+        int month = DOB.getValue().getMonth().getValue();
+        int day = DOB.getValue().getDayOfMonth();
         Date date = new Date(year, month, day);
 
         return date;
