@@ -220,6 +220,8 @@ public class TuitionManagerController {
         output.appendText(roster.sortBySchoolMajor());
     }
     public void printEligibleGradsButton(ActionEvent e){
+        enrollment.endSemester(roster);
+        output.appendText("\nCredit completed has been updated.");
         output.appendText(roster.printEligibleGraduates());
     }
     public void printRBSButton(ActionEvent e){

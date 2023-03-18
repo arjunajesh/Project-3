@@ -147,8 +147,6 @@ public class Enrollment {
             Student s = roster.getStudent(es.getProfile());
             s.setCreditCompleted(s.getCreditCompleted() + es.getCreditsEnrolled());
         }
-        System.out.println("Credit completed has been updated.");
-        roster.printEligibleGraduates();
     }
 
     /**
