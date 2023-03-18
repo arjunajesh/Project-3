@@ -3,7 +3,10 @@ package com.example.project3;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import project1.*;
+
+import java.io.File;
 
 public class TuitionManagerController {
     private final Roster roster = new Roster();
@@ -134,6 +137,17 @@ public class TuitionManagerController {
         } /* Use getMajor() method to save above lines of code. roster.change() will have to be reconfigured to
              accept type Major*/
         output.appendText("\n" + opText);
+
+    }
+    public void loadFromFileButton(ActionEvent e){
+        FileChooser fc = new FileChooser();
+        File selectedFile = fc.showOpenDialog(null);
+        try{
+            output.appendText(roster.loadFile(selectedFile));
+        }
+        catch(Exception ex){
+            output.appendText(ex.getMessage());
+        }
 
     }
     public void enrollStudentButton(ActionEvent e){

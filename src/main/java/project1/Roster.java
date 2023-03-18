@@ -1,4 +1,9 @@
 package project1;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  * Class for Roster Object
  * @author Arjun Ajesh, Nathan Roh
@@ -437,6 +442,38 @@ public class Roster {
             }
         }
         return sb.toString();
+    }
+
+    public String loadFile(File file) throws Exception {
+        Scanner scan = null;
+        try {
+            scan = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new Exception("File error!");
+        }
+
+        while(scan.hasNextLine()) {
+            String str = scan.nextLine();
+            String[] token = str.split(",");
+            Major m = validateBasicCredentials(token[3], token[4], token[5]);
+            switch(token[0]){
+                case "R": addStudent(new Resident(token[1], token[2], new Date(token[3]), m, Integer.parseInt(token[5])));
+                    break;
+                case "N": addStudent(new NonResident(token[1], token[2], new Date(token[3]), m, Integer.parseInt(token[5])));
+                    break;
+                case "T": addStudent(new TriState(token[1], token[2], new Date(token[3]), m, Integer.parseInt(token[5]), token[6]));
+                    break;
+                case "I":
+                    boolean isStudyAbroad = false;
+                    if(token[6].equalsIgnoreCase("true")) {
+                        isStudyAbroad = true;
+                    }
+                    addStudent(new International(token[1], token[2], new Date(token[3]), m, Integer.parseInt(token[5]), isStudyAbroad));
+            }
+        }
+        return "Students loaded to the roster.";
+
+
     }
 
     /**
