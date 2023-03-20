@@ -36,7 +36,7 @@
                                         <TextField fx:id="firstName" prefHeight="26.0" prefWidth="310.0" GridPane.columnIndex="1" />
                                         <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <TextField fx:id="creditsCompleted" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                        <DatePicker fx:id="dob" prefHeight="26.0" prefWidth="305.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <DatePicker fx:id="dob" editable="false" prefHeight="26.0" prefWidth="305.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                             <children>
                                                 <RadioButton fx:id="baitRadio" mnemonicParsing="false" selected="true" text="BAIT">
@@ -125,7 +125,7 @@
                                         </HBox>
                                         <TextField fx:id="eFirstName" GridPane.columnIndex="1" />
                                         <TextField fx:id="eLastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <DatePicker fx:id="eDOB" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <DatePicker fx:id="eDOB" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <TextField fx:id="creditsEnrolled" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     </children>
                                 </GridPane>
@@ -161,7 +161,7 @@
                                         </HBox>
                                         <TextField fx:id="sFirstName" GridPane.columnIndex="1" />
                                         <TextField fx:id="sLastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <DatePicker fx:id="sDOB" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <DatePicker fx:id="sDOB" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                         <TextField fx:id="scholarshipAmount" onAction="#scholarshipButton" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     </children>
                                 </GridPane>

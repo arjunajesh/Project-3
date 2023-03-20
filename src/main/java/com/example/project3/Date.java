@@ -82,7 +82,6 @@ public class Date implements Comparable<Date>{
 
             return isOver16(c);
         }catch(IllegalArgumentException e){
-            System.out.println("DOB invalid: " + this + " not a valid calendar date!");
             return false;
         }
     }
