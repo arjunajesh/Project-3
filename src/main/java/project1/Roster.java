@@ -107,8 +107,12 @@ public class Roster {
         if(!s.isResident()){
             throw new Exception(s.getProfile().toString() + " (" + getTypeString(s) + ")" + " is not eligible for the scholarship.");
         }
+        EnrollStudent e = enrollment.getEnrolledStudent(s.getProfile());
+        if(e==null){
+            throw new Exception(p + " is not enrolled");
+        }
         //verify student is not part-time
-        if(!enrollment.getEnrolledStudent(s.getProfile()).isFulltime()){
+        if(!e.isFulltime()){
             throw new Exception(p + " part time student is not eligible for the scholarship.");
         }
         //verify scholarship amount is valid

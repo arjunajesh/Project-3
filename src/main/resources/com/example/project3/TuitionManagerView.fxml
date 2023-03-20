@@ -156,7 +156,7 @@
                                         <Label text="Amount" GridPane.rowIndex="3" />
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
-                                                <Button mnemonicParsing="false" text="Update Scholarship Amount" />
+                                                <Button mnemonicParsing="false" onAction="#scholarshipButton" text="Update Scholarship Amount" />
                                             </children>
                                         </HBox>
                                         <TextField fx:id="sFirstName" GridPane.columnIndex="1" />

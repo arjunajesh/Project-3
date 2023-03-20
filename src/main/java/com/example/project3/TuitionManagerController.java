@@ -199,14 +199,15 @@ public class TuitionManagerController {
             validateIntegerField(scholarshipAmount.getText());
         }
         catch(Exception ex){
-            output.appendText("Scholarship Amount" + ex.getMessage());
+            output.appendText("\nScholarship Amount" + ex.getMessage());
+            return;
         }
         try{
-            roster.awardScholarShip(new Profile(sFirstName.getText(), sLastName.getText(), d),
-                    Integer.parseInt(scholarshipAmount.getText()), enrollment);
+            output.appendText("\n"+roster.awardScholarShip(new Profile(sFirstName.getText(), sLastName.getText(), d),
+                    Integer.parseInt(scholarshipAmount.getText()), enrollment));
         }
         catch(Exception ex){
-            output.appendText(ex.getMessage());
+            output.appendText("\n"+ex.getMessage());
         }
 
     }
