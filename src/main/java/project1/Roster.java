@@ -31,7 +31,7 @@ public class Roster {
     /**
      * Adds a student to the roster. If the roster is full, it will call grow()
      * @param student student that is to be added to roster
-     * @return returns true if student was added, false if student is already in roster
+     * @return returns string that indicates student was added to roster or student cannot be added for a given reason
      */
     public String addStudent(Student student){
         if(!student.getProfile().getDob().isValid()){
@@ -56,10 +56,10 @@ public class Roster {
 
     /**
      * Makes sure Date of birth, major, and credits all fit requirements
-     * @param dob
-     * @param major
-     * @param credits
-     * @return
+     * @param dob date of birth
+     * @param major student's major
+     * @param credits student's credits
+     * @return returns the valid student's major
      */
     public static Major validateBasicCredentials(String dob, String major, String credits){
         int c;
@@ -97,6 +97,13 @@ public class Roster {
         return m;
     }
 
+    /**
+     * Awards/updates a student's scholarship and prints respective response
+     * @param p student's profile
+     * @param scholarshipAmount amount of scholarship
+     * @param enrollment enrollment
+     * @return returns a string indicating whether a student's scholarship was updated or an error occurred
+     */
     public String awardScholarShip(Profile p, int scholarshipAmount, Enrollment enrollment) throws Exception{
         Student s = getStudent(p);
         //verify student is in roster
@@ -126,6 +133,11 @@ public class Roster {
 
     }
 
+    /**
+     * Gets the string representation of a student's type
+     * @param s student object
+     * @return returns the string representation of type of student
+     */
     private String getTypeString(Student s){
         if(s instanceof Resident){
             return "Resident";
@@ -145,7 +157,7 @@ public class Roster {
     /**
      * Removes specified student from roster
      * @param profile student to be removed
-     * @return returns true if student is removed, false if student is not in roster
+     * @return returns string indicating student was removed from roster or student does not exist in roster
      */
     public String remove(Profile profile){
         if(find(profile) == -1){ // student does not exist
@@ -205,7 +217,7 @@ public class Roster {
      * Changes the major of the student
      * @param profile
      * @param major new major of the student
-     * @return true is major was changed, false if invalid major or student does not exist in roster
+     * @return returns string indicating whether student's major was changed or student is not in roster
      */
     public String change(Profile profile, String major){
         String majorL = major.toLowerCase();
@@ -261,6 +273,7 @@ public class Roster {
 
     /**
      * Prints out the roster sorted by standing
+     * @return returns string indicating roster is empty or a list of students ordered by standing
      */
    public String sortByStanding() {
        StringBuilder sb = new StringBuilder();
@@ -296,6 +309,7 @@ public class Roster {
 
     /**
      * Prints out the roster sorted by school, major
+     * @return returns string indicating roster is empty or a list of students ordered by school & major
      */
    public String sortBySchoolMajor(){
        StringBuilder sb = new StringBuilder();
@@ -341,6 +355,7 @@ public class Roster {
 
     /**
      * Prints the roster
+     * @return returns string indicating roster is empty or a list of students ordered by fname, lname, DOB
      */
     public String printRoster() {
         StringBuilder sb;
@@ -359,6 +374,11 @@ public class Roster {
         }
         return sb.toString();
     }
+
+    /**
+     * Gets a student's type and specifications
+     * @return returns string detailing student's type and if student is study abroad/which tri-state student is from
+     */
     public static String getStudentInfo(Student s){
         if(s instanceof Resident){
             return "(resident)";
@@ -374,6 +394,11 @@ public class Roster {
         }
         else return "";
     }
+
+    /**
+     * Prints all eligible graduates
+     * @return returns string indicating roster is empty or a list of students who are eligible to graduate
+     */
     public String printEligibleGraduates(){ //print eligible graduates
         StringBuilder sb = new StringBuilder();
         if(size == 0) {
@@ -391,6 +416,11 @@ public class Roster {
         return sb.toString();
     }
 
+    /**
+     * Allows user to input students from a given file
+     * @param file input file
+     * @return returns string indicating students have been loaded to roster or an error occurred
+     */
     public String loadFile(File file) throws Exception {
         Scanner scan = null;
         try {
@@ -425,7 +455,8 @@ public class Roster {
 
     /**
      * Prints the students in a specified school
-     * @param school
+     * @param school student's school
+     * @return returns string indicating that roster is empty or a list of students from a chosen school
      */
     public String printSchool(String school){
         StringBuilder sb = new StringBuilder();
