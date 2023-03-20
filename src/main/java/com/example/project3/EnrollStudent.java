@@ -1,4 +1,4 @@
-package project1;
+package com.example.project3;
 /**
  * Class for EnrollStudent Object
  * @author Arjun Ajesh, Nathan Roh

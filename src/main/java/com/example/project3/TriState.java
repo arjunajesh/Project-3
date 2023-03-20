@@ -1,27 +1,32 @@
-package project1;
+package com.example.project3;
+
 /**
- * Class for NonResident Object
+ * Class for TriState Object
  * @author Arjun Ajesh, Nathan Roh
  */
-public class NonResident extends Student{
-
+public class TriState extends NonResident {
+    private final String state;
     private static final int MIN_CREDITS_FULLTIME = 12;
     private static final int ADDITIONAL_CREDITS = 16;
     private static final int TUITION_COST = 29737;
     private static final int UNIVERSITY_FEE = 3268;
     private static final int PER_CREDIT_HOUR_COST = 966;
+    private static final int NY_DISCOUNT = 4000;
+    private static final int CT_DISCOUNT = 5000;
     private static final double PORTION = 0.8;
 
     /**
-     * Constructor for NonResident Class
-     * @param fname first name of student
+     * Constructor for TriState Class
+     * @param fname student's first name
      * @param lname last name
      * @param dob date of birth
      * @param major student's major
      * @param credits student's credits
+     * @param state which state student is from
      */
-    public NonResident(String fname, String lname, Date dob, Major major, int credits) {
+    public TriState(String fname, String lname, Date dob, Major major, int credits, String state) {
         super(fname, lname, dob, major, credits);
+        this.state = state;
     }
 
     /**
@@ -40,17 +45,24 @@ public class NonResident extends Student{
                 tuition = TUITION_COST + UNIVERSITY_FEE;
             }
         }
-        else { // part-time
+        else { // part time
             tuition = (PER_CREDIT_HOUR_COST * creditsEnrolled) + (PORTION * UNIVERSITY_FEE);
         }
+
+        if(state.toLowerCase().equalsIgnoreCase("NY") && creditsEnrolled >= MIN_CREDITS_FULLTIME) {
+            tuition = tuition - NY_DISCOUNT;
+        }
+        if(state.toLowerCase().equalsIgnoreCase("CT") && creditsEnrolled >= MIN_CREDITS_FULLTIME) {
+            tuition = tuition - CT_DISCOUNT;
+        }
+
         return tuition;
     }
 
     /**
-     * @return returns false, for students of this class are not residents
+     * @return returns state from which student is from (in capital letters)
      */
-    @Override
-    public boolean isResident() {
-        return false;
+    public String getState(){
+        return state.toUpperCase();
     }
 }

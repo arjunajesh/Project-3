@@ -56,7 +56,7 @@
                                  </toggleGroup></RadioButton>
                                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                             <children>
-                                                <RadioButton mnemonicParsing="false" onAction="#enableNonResidentSettings" text="Non-Resident" toggleGroup="$ResidentGroup" />
+                                                <RadioButton fx:id="nonResidentRadio" mnemonicParsing="false" onAction="#enableNonResidentSettings" text="Non-Resident" toggleGroup="$ResidentGroup" />
                                                 <VBox prefHeight="200.0" prefWidth="100.0">
                                                     <children>
                                                         <RadioButton fx:id="tristateRadio" disable="true" mnemonicParsing="false" onAction="#tristateSettings" text="Tri-state">

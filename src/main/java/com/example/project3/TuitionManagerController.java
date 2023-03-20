@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
-import project1.*;
 
 import java.io.File;
 
@@ -47,6 +46,8 @@ public class TuitionManagerController {
     private RadioButton itiRadio;
     @FXML
     private RadioButton mathRadio;
+    @FXML
+    private RadioButton nonResidentRadio;
     @FXML
     private TextField creditsEnrolled;
     @FXML
@@ -416,9 +417,13 @@ public class TuitionManagerController {
         //enable non resident settings
         tristateRadio.setDisable(false);
         internationalRadio.setDisable(false);
-        nyRadio.setDisable(false);
-        ctRadio.setDisable(false);
-
+        nyRadio.setDisable(true);
+        ctRadio.setDisable(true);
+        tristateRadio.setSelected(false);
+        internationalRadio.setSelected(false);
+        nyRadio.setSelected(false);
+        ctRadio.setSelected(false);
+        studyAbroadCheckBox.setSelected(false);
     }
 
     /**
@@ -458,6 +463,7 @@ public class TuitionManagerController {
 
         //set default state selection
         nyRadio.setSelected(true);
+        nonResidentRadio.setSelected(false);
     }
 
     /**
@@ -475,5 +481,6 @@ public class TuitionManagerController {
         //clear tri-state selections
         nyRadio.setSelected(false);
         ctRadio.setSelected(false);
+        nonResidentRadio.setSelected(false);
     }
 }

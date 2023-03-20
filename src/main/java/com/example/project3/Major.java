@@ -1,4 +1,4 @@
-package project1;
+package com.example.project3;
 
 /**
  * Class for Major Object
