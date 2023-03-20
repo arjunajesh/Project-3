@@ -325,7 +325,7 @@ public class Roster {
    public String sortByStanding() {
        StringBuilder sb = new StringBuilder();
        if (size == 0) {
-           return "Student roster is empty!";
+           return "\nStudent roster is empty!";
        } else {
            sort();
            sb.append("\n** Student roster sorted by standing **");
@@ -360,7 +360,7 @@ public class Roster {
    public String sortBySchoolMajor(){
        StringBuilder sb = new StringBuilder();
        if (size == 0) {
-           return "Student roster is empty!";
+           return "\nStudent roster is empty!";
        } else {
            sort();
            sb.append("\n** Student roster sorted by school, major **");
@@ -402,19 +402,21 @@ public class Roster {
     /**
      * Prints the roster
      */
-    public String printRoster(){
-        if(size == 0){
-            return "Student roster is empty!";
-        }
-        sort();
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n** Student roster sorted by last name, first name, DOB **");
-        for(int i = 0; i < size; i++){
-            if(this.roster[i] != null) {
-                sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
+    public String printRoster() {
+        StringBuilder sb;
+        if (size == 0) {
+            return "\nStudent roster is empty!";
+        } else {
+            sort();
+            sb = new StringBuilder();
+            sb.append("\n** Student roster sorted by last name, first name, DOB **");
+            for (int i = 0; i < size; i++) {
+                if (this.roster[i] != null) {
+                    sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
+                }
             }
+            sb.append("\n* end of roster *");
         }
-        sb.append("\n* end of roster *");
         return sb.toString();
     }
     public static String getStudentInfo(Student s){
@@ -434,13 +436,18 @@ public class Roster {
     }
     public String printEligibleGraduates(){ //print eligible graduates
         StringBuilder sb = new StringBuilder();
-        sb.append("\n** list of students eligible for graduation **");
-        for(int i = 0; i < size; i++){
-            Student s = roster[i];
-            if(s.getCreditCompleted() >= CREDITS_REQUIRED_GRADUATION){
-                sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
+        if(size == 0) {
+            return "\nStudent roster is empty!";
+        } else {
+            sb.append("\n** list of students eligible for graduation **");
+            for(int i = 0; i < size; i++){
+                Student s = roster[i];
+                if(s.getCreditCompleted() >= CREDITS_REQUIRED_GRADUATION){
+                    sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
+                }
             }
         }
+
         return sb.toString();
     }
 
@@ -471,7 +478,7 @@ public class Roster {
                     addStudent(new International(token[1], token[2], new Date(token[3]), m, Integer.parseInt(token[5]), isStudyAbroad));
             }
         }
-        return "Students loaded to the roster.";
+        return "\nStudents loaded to the roster.";
 
 
     }
@@ -490,15 +497,16 @@ public class Roster {
         }
         if(this.roster[0] == null){
             sb.append("\nStudent roster is empty!");
-        }
-        sort();
-        sb.append("\n* Students in " + school + " *");
-        for(int i = 0; i < size; i++){
-            if((this.roster[i].getSchool()).equalsIgnoreCase(school) && (this.roster[i] != null)){
-                sb.append("\n" + this.roster[i] + getStudentInfo(this.roster[i]));
+        } else {
+            sort();
+            sb.append("\n* Students in " + school + " *");
+            for(int i = 0; i < size; i++){
+                if((this.roster[i].getSchool()).equalsIgnoreCase(school) && (this.roster[i] != null)){
+                    sb.append("\n" + this.roster[i] + getStudentInfo(this.roster[i]));
+                }
             }
+            sb.append("\n* end of list *");
         }
-        sb.append("\n* end of list *");
         return sb.toString();
     }
 
