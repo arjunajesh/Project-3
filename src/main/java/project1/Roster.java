@@ -52,57 +52,7 @@ public class Roster {
         }
     }
 
-    /**
-     * Handles All add student commands (international, resident, non-resident, tristate)
-     * @param command
-     * @return
 
-    public boolean add(String[] command){
-        try{
-            Major m = validateBasicCredentials(command[3], command[4], command[5]);
-            if (m == null){
-                return false;
-            }
-            boolean worked = false;
-            switch(command[0]){
-                case "AR": worked = addStudent(new Resident(command[1], command[2], new Date(command[3]), m, Integer.parseInt(command[5])));
-                    break;
-                case "AN": worked = addStudent(new NonResident(command[1], command[2], new Date(command[3]), m, Integer.parseInt(command[5])));
-                    break;
-                case "AT":
-                    if(command.length < 7){
-                        System.out.println("Missing the state code.");
-                        return false;
-                    }
-                    if(!command[6].equalsIgnoreCase("ny") && !command[6].equalsIgnoreCase("ct")){
-                        System.out.println(command[6] + ": Invalid state code.");
-                        return false;
-                    }
-                    worked = addStudent(new TriState(command[1], command[2], new Date(command[3]), m, Integer.parseInt(command[5]), command[6]));
-
-                    break;
-                case "AI":
-                    boolean isStudyAbroad = command.length > 6 ? Boolean.parseBoolean(command[6]) : false;
-                    worked = addStudent(new International(command[1], command[2], new Date(command[3]), m, Integer.parseInt(command[5]), isStudyAbroad));
-            }
-            if(worked){
-                System.out.println(command[1] + " " + command[2] + " " + command[3] + " added to the roster.");
-            }
-            else{
-                System.out.println(command[1] + " " + command[2] + " " + command[3] + " is already in the roster.");
-
-            }
-            return true;
-        }
-        catch(IndexOutOfBoundsException e){
-            System.out.println("Missing data in command line.");
-            return false;
-        }
-        catch(Exception e){
-            System.out.println("Error occurred "  + e.getMessage());
-            return false;
-        }
-    }*/
 
     /**
      * Makes sure Date of birth, major, and credits all fit requirements
@@ -147,7 +97,7 @@ public class Roster {
         return m;
     }
 
-    public void awardScholarShip(Profile p, int scholarshipAmount, Enrollment enrollment) throws Exception{
+    public String awardScholarShip(Profile p, int scholarshipAmount, Enrollment enrollment) throws Exception{
         Student s = getStudent(p);
         //verify student is in roster
         if(s == null){
@@ -168,6 +118,7 @@ public class Roster {
 
         Resident r = (Resident) s;
         r.setScholarship(scholarshipAmount);
+        return s.getProfile() + ": scholarship amount updated.";
 
     }
 
@@ -301,21 +252,6 @@ public class Roster {
                     }
                 }
             }
-        }
-   }
-
-    /**
-     * Prints out the roster sorted by last name, first name, date of birth
-     */
-   public void sortByProfile(){
-        if(size == 0){
-            System.out.println("Student roster is empty!");
-        }
-        else{
-            System.out.println("** Student roster sorted by last name, first name, DOB **");
-            sort();
-            printRoster();
-            System.out.println("* end of roster *");
         }
    }
 
