@@ -386,8 +386,8 @@ public class Roster {
                     sb.append("\n" + roster[i] + getStudentInfo(roster[i]));
                 }
             }
+            sb.append("\n** end of list**");
         }
-
         return sb.toString();
     }
 

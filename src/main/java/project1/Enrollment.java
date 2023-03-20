@@ -141,7 +141,10 @@ public class Enrollment {
      * Prints the list of eligible graduates
      * @param roster the object to be used to get student profiles.
      */
-    public void endSemester(Roster roster){
+    public void endSemester(Roster roster) throws Exception{
+        if(size == 0){
+            throw new Exception("There are no students enrolled");
+        }
         for(int i = 0; i < size; i++){ //iterate through enrollment
             EnrollStudent es = enrollStudents[i];
             Student s = roster.getStudent(es.getProfile());

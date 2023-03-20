@@ -40,7 +40,7 @@ public class NonResident extends Student{
                 tuition = TUITION_COST + UNIVERSITY_FEE;
             }
         }
-        else { // part time
+        else { // part-time
             tuition = (PER_CREDIT_HOUR_COST * creditsEnrolled) + (PORTION * UNIVERSITY_FEE);
         }
         return tuition;

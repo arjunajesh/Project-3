@@ -77,19 +77,22 @@ public class TuitionManagerController {
             return;
         }
 
-        //construct major
+        // construct major
         Major m = getMajor();
         String opText = "";
         if (residentRadio.isSelected()) {
             opText = roster.addStudent(new Resident(firstName.getText(), lastName.getText(),
                     d, m, Integer.parseInt(creditsCompleted.getText())));
-        } else { //non-resident chosen
+        } else { // non-resident chosen
             if (tristateRadio.isSelected()) {
                 String state = nyRadio.isSelected() ? "NY" : "CT";
                 opText = roster.addStudent(new TriState(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText()), state));
-            } else { //international chosen
+            } else if(internationalRadio.isSelected()){ //international chosen
                 boolean isStudyAbroad = studyAbroadCheckBox.isSelected();
                 opText = roster.addStudent(new International(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText()), isStudyAbroad));
+            }
+            else{ // non-resident
+                opText = roster.addStudent(new NonResident(firstName.getText(), lastName.getText(), d, m, Integer.parseInt(creditsCompleted.getText())));
             }
         }
         output.appendText("\n"  + opText);
@@ -221,7 +224,13 @@ public class TuitionManagerController {
         output.appendText(roster.sortBySchoolMajor());
     }
     public void printEligibleGradsButton(ActionEvent e){
-        enrollment.endSemester(roster);
+        try {
+            enrollment.endSemester(roster);
+        }
+        catch(Exception ex){
+            output.appendText("\n" + ex.getMessage());
+            return;
+        }
         output.appendText("\nCredit completed has been updated.");
         output.appendText(roster.printEligibleGraduates());
     }
@@ -299,9 +308,6 @@ public class TuitionManagerController {
         nyRadio.setDisable(false);
         ctRadio.setDisable(false);
 
-        //set default selections
-        nyRadio.setSelected(true);
-        tristateRadio.setSelected(true);
     }
     public void disableNonResidentSettings(ActionEvent e){
         //disable all non resident settings
