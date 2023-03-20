@@ -355,7 +355,7 @@ public class Roster {
 
     /**
      * Prints the roster
-     * @return returns string indicating roster is empty or a list of students ordered by fname, lname, DOB
+     * @return returns string indicating roster is empty or a list of students ordered by lname, fname, DOB
      */
     public String printRoster() {
         StringBuilder sb;
