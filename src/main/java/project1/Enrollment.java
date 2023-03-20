@@ -25,6 +25,7 @@ public class Enrollment {
      * Adds a student to enrollment
      * Takes a student object and adds to end of enrollStudents array
      * @param enrollStudent the object to be added.
+     * @return returns appropriate string (error message or message indicating that student was successfully added
      */
     public String add(EnrollStudent enrollStudent, Roster roster){
         Student s = roster.getStudent(enrollStudent.getProfile());
@@ -62,6 +63,7 @@ public class Enrollment {
     /**
      * Removes a student from the enrollment list
      * @param enrollStudent the object to be removed.
+     * @return returns string indicating student is either not in roster or student was dropped from roster
      */
     public String remove(EnrollStudent enrollStudent){
         if(find(enrollStudent.getProfile()) == -1) {
@@ -94,6 +96,7 @@ public class Enrollment {
 
     /**
      * Prints the enrollment list
+     * @return returns string that indicates desired list is empty or a list of students in enrollment
      */
     public String printEnrollment(){
         StringBuilder sb = new StringBuilder();
@@ -115,6 +118,7 @@ public class Enrollment {
     /**
      * Prints students' profile information and tuition
      * @param roster the object to be used to get student profiles.
+     * @return returns string that indicates roster is empty or a list of students and their tuitions due
      */
     public String printTuition(Roster roster){
         StringBuilder sb = new StringBuilder();

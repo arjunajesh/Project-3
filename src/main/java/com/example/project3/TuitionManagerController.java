@@ -8,6 +8,10 @@ import project1.*;
 
 import java.io.File;
 
+/**
+ * Class for TuitionManagerController Object
+ * @author Arjun Ajesh, Nathan Roh
+ */
 public class TuitionManagerController {
     private final Roster roster = new Roster();
     private final Enrollment enrollment = new Enrollment();
@@ -60,6 +64,10 @@ public class TuitionManagerController {
     @FXML
     private TextField scholarshipAmount;
 
+    /**
+     * Handles instances where add student button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void addStudentButton(ActionEvent e){
         Date d;
         try{
@@ -96,6 +104,11 @@ public class TuitionManagerController {
 
 
     }
+
+    /**
+     * Handles instances where remove student button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void removeStudentButton(ActionEvent e){
         Date d;
         try{
@@ -110,6 +123,11 @@ public class TuitionManagerController {
         opText = roster.remove(new Profile(firstName.getText(), lastName.getText(), d));
         output.appendText("\n" + opText);
     }
+
+    /**
+     * Handles instances where change major button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void changeMajorButton(ActionEvent e){
         Date d;
         try{
@@ -139,6 +157,11 @@ public class TuitionManagerController {
         output.appendText("\n" + opText);
 
     }
+
+    /**
+     * Handles instances where load from file button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void loadFromFileButton(ActionEvent e){
         FileChooser fc = new FileChooser();
         File selectedFile = fc.showOpenDialog(null);
@@ -150,6 +173,11 @@ public class TuitionManagerController {
         }
 
     }
+
+    /**
+     * Handles instances where enroll student button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void enrollStudentButton(ActionEvent e){
         Date d;
         try{
@@ -172,6 +200,11 @@ public class TuitionManagerController {
         output.appendText("\n" + opText);
 
     }
+
+    /**
+     * Handles instances where drop student from enrollment button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void dropEnrollButton(ActionEvent e){
         Date d;
         try{
@@ -186,6 +219,11 @@ public class TuitionManagerController {
         output.appendText("\n" + opText);
 
     }
+
+    /**
+     * Handles instances where update scholarship button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void scholarshipButton(ActionEvent e){
         Date d;
         try{
@@ -210,38 +248,96 @@ public class TuitionManagerController {
         }
 
     }
+
+    /**
+     * Handles instances where print roster button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void printRosterButton(ActionEvent e){
         output.appendText(roster.printRoster());
     }
+
+    /**
+     * Handles instances where print roster by standing button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void printRosterStandingButton(ActionEvent e){
         output.appendText(roster.sortByStanding());
     }
+
+    /**
+     * Handles instances where print roster by school & major button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void printRosterSchoolMajorButton(ActionEvent e){
         output.appendText(roster.sortBySchoolMajor());
     }
+
+    /**
+     * Handles instances where print eligible graduates button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void printEligibleGradsButton(ActionEvent e){
         enrollment.endSemester(roster);
         output.appendText("\nCredit completed has been updated.");
         output.appendText(roster.printEligibleGraduates());
     }
+
+    /**
+     * Handles instances where print all RBS students button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void printRBSButton(ActionEvent e){
         output.appendText(roster.printSchool("RBS"));
     }
+
+    /**
+     * Handles instances where print all SAS students button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void printSASButton(ActionEvent e){
         output.appendText(roster.printSchool("SAS"));
     }
+
+    /**
+     * Handles instances where print all SC&I students button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void printSCIButton(ActionEvent e){
         output.appendText(roster.printSchool("SC&I"));
     }
+
+    /**
+     * Handles instances where print all SOE students button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void printSOEButton(ActionEvent e){
         output.appendText(roster.printSchool("SOE"));
     }
+
+    /**
+     * Handles instances where print current enrollment button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void printCurrentEnrollmentButton(ActionEvent e){
         output.appendText(enrollment.printEnrollment());
     }
+
+    /**
+     * Handles instances where print tuition due button is pressed
+     * @param e allows access to properties of ActionEvent
+     */
     public void printTuitionDueButton(ActionEvent e){
         output.appendText(enrollment.printTuition(roster));
     }
+
+    /**
+     * Verifies that profile fields (fname, lname, dob) are filled in and valid
+     * @param fname inputted first name
+     * @param lname inputted last name
+     * @param DOB chosen date of birth
+     * @return returns the properly formatted date of the datepicker input
+     */
     private Date validateProfileFields(TextField fname, TextField lname, DatePicker DOB) throws Exception{
         if(fname.getText().isBlank()){
             throw new Exception("Please enter first name");
@@ -260,6 +356,11 @@ public class TuitionManagerController {
 
         return date;
     }
+
+    /**
+     * Identifies which major button the user presses
+     * @return returns the major respective to the button chosen
+     */
     private Major getMajor(){
         if(baitRadio.isSelected()){
             return Major.BAIT;
@@ -277,6 +378,11 @@ public class TuitionManagerController {
             return Major.MATH;
         }
     }
+
+    /**
+     * Verifies that the inputted credits is an appropriate input
+     * @param credits inputted string that represents the number of credits
+     */
     private void validateIntegerField(String credits) throws Exception{
         if(credits.isBlank()){
             throw new Exception(" cannot be empty");
@@ -291,6 +397,11 @@ public class TuitionManagerController {
             throw new Exception(" must be a number");
         }
     }
+
+    /**
+     * Enables the appropriate follow-up options for user upon choosing NonResident student option
+     * @param e allows access to properties of ActionEvent
+     */
     public void enableNonResidentSettings(ActionEvent e){
         //enable non resident settings
         tristateRadio.setDisable(false);
@@ -302,6 +413,11 @@ public class TuitionManagerController {
         nyRadio.setSelected(true);
         tristateRadio.setSelected(true);
     }
+
+    /**
+     * Enables the appropriate follow-up options for user upon choosing Resident student option
+     * @param e allows access to properties of ActionEvent
+     */
     public void disableNonResidentSettings(ActionEvent e){
         //disable all non resident settings
         tristateRadio.setDisable(true);
@@ -317,6 +433,11 @@ public class TuitionManagerController {
         tristateRadio.setSelected(false);
         internationalRadio.setSelected(false);
     }
+
+    /**
+     * Enables the appropriate follow-up options for user upon choosing Tristate student option
+     * @param e allows access to properties of ActionEvent
+     */
     public void tristateSettings(ActionEvent e){
         //enable tri-state settings
         nyRadio.setDisable(false);
@@ -331,6 +452,11 @@ public class TuitionManagerController {
         //set default state selection
         nyRadio.setSelected(true);
     }
+
+    /**
+     * Enables the appropriate follow-up options for user upon choosing International student option
+     * @param e allows access to properties of ActionEvent
+     */
     public void internationalSettings(ActionEvent e){
         //disable tri-state settings
         nyRadio.setDisable(true);
